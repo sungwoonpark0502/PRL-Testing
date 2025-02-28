@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Transcription</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        select {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        #transcription {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            min-height: 150px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Real-Time Transcription</h1>
+        <div class="controls">
+            <select id="languageSelect">
+                <option value="en-US">English (US)</option>
+                <option value="es-ES">Spanish (Spain)</option>
+                <option value="fr-FR">French (France)</option>
+                <option value="de-DE">German (Germany)</option>
+                <option value="hi-IN">Hindi (India)</option>
+                <option value="ko-KR">Korean (South Korea)</option>
+            </select>
+            <button id="startButton">Start Transcription</button>
+            <button id="stopButton" disabled>Stop Transcription</button>
+            <button id="resetButton">Reset</button>
+            <button id="saveButton">Save Transcript</button>
+        </div>
+        <div id="transcription"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const resetButton = document.getElementById('resetButton');
+        const saveButton = document.getElementById('saveButton');
+        const languageSelect = document.getElementById('languageSelect');
+        const transcriptionDiv = document.getElementById('transcription');
+
+        // Handle WebSocket updates
+        socket.on('update_transcription', (data) => {
+            transcriptionDiv.innerText = data.text;
+        });
+
+        // Start transcription
+        startButton.addEventListener('click', async () => {
+            const language = languageSelect.value;
+            startButton.disabled = true;
+            stopButton.disabled = false;
+            await fetch('/start_transcription', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ language }),
+            });
+        });
+
+        // Stop transcription
+        stopButton.addEventListener('click', async () => {
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            await fetch('/stop_transcription', { method: 'POST' });
+        });
+
+        // Reset transcription
+        resetButton.addEventListener('click', async () => {
+            await fetch('/reset_transcription', { method: 'POST' });
+        });
+
+        // Save transcript
+        saveButton.addEventListener('click', async () => {
+            const response = await fetch('/save_transcription');
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'transcription.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

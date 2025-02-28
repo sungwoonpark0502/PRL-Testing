@@ -1,0 +1,44 @@
+{
+  "actions": [
+    {
+      "name": "Action 1",
+      "face": "smile",
+      "arms": "up",
+      "head": "tilt_right",
+      "led": "green",
+      "audio": "I'm so happy to see you!"
+    },
+    {
+      "name": "Action 2",
+      "face": "frown",
+      "arms": "down",
+      "head": "tilt_left",
+      "led": "blue",
+      "audio": "I feel a little sad today."
+    },
+    {
+      "name": "Action 3",
+      "face": "wide_eyes",
+      "arms": "wave",
+      "head": "nod",
+      "led": "yellow",
+      "audio": "This is so exciting!"
+    },
+    {
+      "name": "Action 4",
+      "face": "angry",
+      "arms": "crossed",
+      "head": "shake",
+      "led": "red",
+      "audio": "I'm really frustrated right now."
+    },
+    {
+      "name": "Action 5",
+      "face": "raised_eyebrows",
+      "arms": "point_forward",
+      "head": "tilt_up",
+      "led": "purple",
+      "audio": "Hmm, I wonder what that is."
+    }
+  ]
+}

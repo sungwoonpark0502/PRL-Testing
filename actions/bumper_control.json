@@ -1,0 +1,23 @@
+{
+    "bumpers": [
+      {
+        "id": "front_left",
+        "action": "play_sound",
+        "sound": "expression_1.mp3"
+      },
+      {
+        "id": "front_right",
+        "action": "change_expression",
+        "expression": "Happy"
+      },
+      {
+        "id": "back_left",
+        "action": "move",
+        "direction": "forward"
+      },
+      {
+        "id": "back_right",
+        "action": "stop"
+      }
+    ]
+  }

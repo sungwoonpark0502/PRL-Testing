@@ -1,0 +1,21 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #status {
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  
+  #status p {
+    margin: 10px 0;
+  }

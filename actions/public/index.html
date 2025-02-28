@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Misty</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Misty Control Panel</h1>
+    <button onclick="performAction(0)">Action 1</button>
+    <button onclick="performAction(1)">Action 2</button>
+    <button onclick="performAction(2)">Action 3</button>
+    <button onclick="performAction(3)">Action 4</button>
+    <button onclick="performAction(4)">Action 5</button>
+    <button onclick="startSequence()">Start Sequence</button>
+    <div id="status-icon">✅</div>
+    <div id="status-message">Press Start to begin</div>
+  </div>
+
+  <!-- Link to the misty.js file -->
+  <script src="misty.js"></script>
+</body>
+</html>
